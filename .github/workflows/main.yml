@@ -1,0 +1,19 @@
+name: dynamicmatrix
+on: push
+jobs:
+  get_variants:
+    runs-on: ubuntu-latest
+    steps:
+      - id: set-variants
+        run: echo "::set-output name=variants::[10, 11, 12]"
+    outputs:
+      variants: ${{ steps.set-variants.outputs.variants }}
+
+  build:
+    needs: get_variants
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        number: ${{ fromJSON(needs.get_variants.outputs.variants) }}
+    steps:
+      - run: echo Build...
