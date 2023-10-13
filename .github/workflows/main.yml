@@ -6,28 +6,8 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - uses: actions/checkout@v2
-      - run: |
-          sudo apt update
-          sudo apt install python-is-python3
-      - uses: snok/install-poetry@v1
+      - uses: actions/checkout@v3
+      - uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
-          version: 1.5.1
-          virtualenvs-create: true
-          virtualenvs-in-project: false
-          installer-parallel: true
-      - run: |
-          poetry install
-          poetry run pip freeze > requirements.txt
-
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "3.2"
-          bundler-cache: true
-      - run: gem install license_finder
-      - id: license-check
-        run: poetry run license_finder --python-version=3 --prepare > dependencies.log
-      - if: failure()
-        uses: mshick/add-pr-comment@v2
-        with:
-          message-path: dependencies.log
+          api-key: ${{secrets.fossaApiKey}}
+          run-tests: true
