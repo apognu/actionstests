@@ -17,5 +17,5 @@ jobs:
           bundler-cache: true
       - run: gem install license_finder
       - run: |
-        source venv/bin/activate
-        license_finder --python-version=3 --prepare
+          source venv/bin/activate
+          license_finder --python-version=3 --prepare
