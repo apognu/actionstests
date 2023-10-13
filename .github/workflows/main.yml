@@ -5,9 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: OSS License Auditor
-        uses: digi-wolk/olaudit-action@v1
+      - uses: ruby/setup-ruby@v1
         with:
-          path: .
-          comment-on-pr: true
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          ruby-version: "3.2"
+          bundler-cache: true
+      - run: gem install licence_finder
+      - run: license_finder
