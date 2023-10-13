@@ -6,8 +6,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          apt update
-          apt install python3-pip python3-virtualenv
+          sudo apt update
+          sudo apt install python3-pip python3-virtualenv
           pip install poetry
           virtualenv venv/
           poetry freeze > requirements.txt
