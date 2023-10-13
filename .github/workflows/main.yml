@@ -26,8 +26,8 @@ jobs:
           bundler-cache: true
       - run: gem install license_finder
       - id: license-check
-        run: echo "licenses=$(poetry run license_finder --python-version=3 --prepare | head)" >> $GITHUB_OUTPUT
+        run: poetry run license_finder --python-version=3 --prepare > dependencies.log
       - if: steps.license-check.conclusion == 'failure'
         uses: mshick/add-pr-comment@v2
         with:
-          message: ${{ steps.license-check.outputs.licenses }}
+          message-path: dependencies.log
