@@ -11,4 +11,3 @@ jobs:
         with:
           api-key: ${{secrets.fossaApiKey}}
           branch: dev/the-pr
-          run-tests: true
