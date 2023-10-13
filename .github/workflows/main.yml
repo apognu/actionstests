@@ -7,15 +7,13 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           sudo apt update
-          sudo apt install python3-pip python3-virtualenv
-          pip install poetry
-          virtualenv venv/
-          poetry freeze > requirements.txt
+          sudo apt install python-is-python3 python3-pip python3-poetry
+          poetry install
+          poetry run pip freeze > requirements.txt
+
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.2"
           bundler-cache: true
       - run: gem install license_finder
-      - run: |
-          source venv/bin/activate
-          license_finder --python-version=3 --prepare
+      - run: poetry run license_finder --python-version=3 --prepare
