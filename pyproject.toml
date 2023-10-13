@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "actionstests"
+version = "0.1.0"
+description = ""
+authors = ["Antoine POPINEAU <antoine@popineau.eu>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+redis = "^5.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
