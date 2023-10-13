@@ -3,6 +3,8 @@ on: push
 jobs:
   oss:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - uses: actions/checkout@v2
       - run: |
@@ -24,3 +26,5 @@ jobs:
           bundler-cache: true
       - run: gem install license_finder
       - run: poetry run license_finder --python-version=3 --prepare
+      - if: failure()
+        run: echo "{name}='$(poetry run license_finder report --python-version=3 --prepare)'" >> $GITHUB_OUTPUT
