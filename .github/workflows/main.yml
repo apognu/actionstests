@@ -27,7 +27,7 @@ jobs:
       - run: gem install license_finder
       - id: license-check
         run: poetry run license_finder --python-version=3 --prepare > dependencies.log
-      - if: steps.license-check.conclusion == 'failure'
+      - if: failure()
         uses: mshick/add-pr-comment@v2
         with:
           message-path: dependencies.log
