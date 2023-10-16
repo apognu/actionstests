@@ -35,7 +35,7 @@ jobs:
 
       - name: LicenseFinder
         run: |
-          poetry run license_finder report --use-spdx-id --format=junit > report.xml
+          poetry run license_finder report --use-spdx-id --format=junit --python-version=3 > report.xml
           cat report.xml
 
       - name: Publish Licenses
