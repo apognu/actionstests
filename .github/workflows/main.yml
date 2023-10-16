@@ -15,3 +15,8 @@ jobs:
         with:
           api-key: ${{ secrets.fossaApiKey }}
           branch: ${{ steps.extract-branch.outputs.branch }}
+
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
