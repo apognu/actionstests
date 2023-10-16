@@ -23,6 +23,10 @@ jobs:
         with:
           poetry-version: "1.5.1"
 
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2"
+
       - name: Install dependencies
         run: |
           sudo gem install license_finder
@@ -30,9 +34,12 @@ jobs:
           poetry run pip freeze > requirements.txt
 
       - name: LicenseFinder
-        run: poetry run license_finder report --use-spdx-id --format=junit --quiet > report.xml
+        run: |
+          poetry run license_finder report --use-spdx-id --format=junit > report.xml
+          cat report.xml
 
       - name: Publish Licenses
+        if: success() || failure()
         uses: EnricoMi/publish-unit-test-result-action@v2.2.0
         with:
           junit_files: "report.xml"
