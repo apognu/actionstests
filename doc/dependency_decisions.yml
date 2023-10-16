@@ -5,3 +5,21 @@
     :why:
     :versions: []
     :when: 2023-10-13 07:20:55.815793433 Z
+- - :permit
+  - Apache 2.0
+  - :who:
+    :why:
+    :versions: []
+    :when: 2023-10-16 12:01:16.845860486 Z
+- - :permit
+  - BSD
+  - :who:
+    :why:
+    :versions: []
+    :when: 2023-10-16 12:01:19.815878695 Z
+- - :permit
+  - Mozilla Public License 2.0
+  - :who:
+    :why:
+    :versions: []
+    :when: 2023-10-16 12:01:30.897578933 Z
