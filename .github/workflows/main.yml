@@ -13,11 +13,6 @@ jobs:
         name: Extract branch name
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
 
-      - uses: fossas/fossa-action@main # Use a specific version if locking is preferred
-        with:
-          api-key: ${{ secrets.fossaApiKey }}
-          branch: ${{ steps.extract-branch.outputs.branch }}
-
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/python-3.10@master
         env:
