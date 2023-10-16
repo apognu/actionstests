@@ -35,8 +35,8 @@ jobs:
 
       - name: LicenseFinder
         run: |
-          poetry run license_finder report --use-spdx-id --format=junit --python-version=3 --save report.xml
-          cat report.xml
+          poetry run license_finder report --format=junit --python-version=3 --save report.xml
+          poetry run license_finder action_items
 
       - name: Publish Licenses
         if: success() || failure()
@@ -45,8 +45,8 @@ jobs:
           junit_files: "report.xml"
           check_name: License Finder
 
-      # - name: Upload result to GitHub Code Scanning
-      #   if: success() || failure()
-      #   uses: github/codeql-action/upload-sarif@v2
-      #   with:
-      #     sarif_file: snyk.sarif
+      - name: Upload result to GitHub Code Scanning
+        if: success() || failure()
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: report.sarif
