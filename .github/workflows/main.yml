@@ -5,9 +5,23 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
+      security-events: write
     steps:
       - uses: actions/checkout@v3
-      - uses: fossas/fossa-action@main # Use a specific version if locking is preferred
+
+      - id: extract-branch
+        name: Extract branch name
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/python-3.10@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          api-key: ${{secrets.fossaApiKey}}
-          branch: dev/the-pr
+          args: --sarif-file-output=snyk.sarif
+
+      - name: Upload result to GitHub Code Scanning
+        if: success() || failure()
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk.sarif
