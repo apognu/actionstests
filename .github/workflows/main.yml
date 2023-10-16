@@ -23,13 +23,15 @@ jobs:
         with:
           poetry-version: "1.5.1"
 
-      - name: View poetry --help
+      - name: Install dependencies
         run: |
           poetry install
           poetry run pip freeze > requirements.txt
 
       - name: LicenseFinder
         uses: jmservera/license-finder-action@main
+        env:
+          PATH: $(pwd)/.venv/bin:${PATH}
         with:
           permitted-licenses: MIT,Apache-2.0
 
