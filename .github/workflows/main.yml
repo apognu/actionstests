@@ -25,6 +25,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          sudo gem install license_finder
           poetry install
           poetry run pip freeze > requirements.txt
 
