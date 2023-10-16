@@ -1,6 +1,6 @@
 import redis
 
-# 2
+# 3
 
 def main():
   cache = redis.StrictRedis(host="1.2.3.4", port=6379)
