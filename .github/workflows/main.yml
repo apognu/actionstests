@@ -14,6 +14,20 @@ jobs:
         name: Extract branch name
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
 
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Run image
+        uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: "1.5.1"
+
+      - name: View poetry --help
+        run: |
+          poetry install
+          poetry run pip freeze > requirements.txt
+
       - name: LicenseFinder
         uses: jmservera/license-finder-action@main
         with:
