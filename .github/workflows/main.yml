@@ -13,15 +13,19 @@ jobs:
         name: Extract branch name
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
 
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/python-3.10@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      - name: LicenseFinder
+        uses: jmservera/license-finder-action@main
         with:
-          args: --sarif-file-output=snyk.sarif
+          permitted-licenses: MIT,Apache-2.0
 
-      - name: Upload result to GitHub Code Scanning
-        if: success() || failure()
-        uses: github/codeql-action/upload-sarif@v2
+      - name: Publish Licenses
+        uses: EnricoMi/publish-unit-test-result-action@v2.2.0
         with:
-          sarif_file: snyk.sarif
+          junit_files: "license_finder_report.xml"
+          check_name: License Finder
+
+      # - name: Upload result to GitHub Code Scanning
+      #   if: success() || failure()
+      #   uses: github/codeql-action/upload-sarif@v2
+      #   with:
+      #     sarif_file: snyk.sarif
