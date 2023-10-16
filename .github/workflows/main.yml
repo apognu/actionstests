@@ -7,9 +7,14 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v3
+
       - id: extract-branch
         name: Extract branch name
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
 
       - uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
