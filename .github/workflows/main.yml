@@ -23,15 +23,11 @@ jobs:
         with:
           poetry-version: "1.5.1"
 
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "3.2"
-
       - name: Install dependencies
         run: |
           sudo gem install license_finder
           poetry install
-          poetry run pip freeze > requirements.txt
+          poetry export -f requirements.txt --output requirements.txt
 
       - name: LicenseFinder
         run: |
